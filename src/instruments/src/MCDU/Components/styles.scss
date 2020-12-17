@@ -1,0 +1,88 @@
+@import url('/CSS/A32NX_Display_Common.css');
+
+@font-face {
+  font-family: "ECAMFontRegular";
+  src: url("/Fonts/ECAMFontRegular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+// COLUMNS
+.column-holder {
+  flex-grow: 1;
+  display:flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+//LINES
+.line-holder {
+  max-height: 126px;
+  min-height: 126px;
+}
+
+.line {
+  max-height: 63px;
+  min-height: 63px;
+}
+
+.line-left {
+  text-align: left;
+}
+
+.line-right {
+  text-align: right;
+}
+
+// TEXT
+.s-text {
+  font-size: 4.2vw;
+  letter-spacing: 0.6vw;
+  line-height: 5.8vw;
+}
+
+p {
+  font-family: "ECAMFontRegular" !important;
+  color: var(--mcduWhite);
+  font-size: 5.8vw;
+  letter-spacing: normal;
+}
+
+span {
+  @extend p
+}
+
+// COLORS
+
+.white {
+  color: var(--mcduWhite);
+}
+
+.inop {
+  color: var(--mcduLightGrey);
+}
+
+.cyan {
+  color: var(--mcduCyan);
+}
+
+.yellow {
+  color: var(--mcduYellow);
+}
+
+.green {
+  color: var(--mcduGreen);
+}
+
+.amber {
+  color: var(--mcduAmber);
+}
+
+.red {
+  color: var(--mcduRed);
+}
+
+.magenta {
+  color: var(--mcduMagenta);
+}
