@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-import { Column } from '../../../Components/Column';
+import { Content } from '../../../Components/Content';
 import '../../../Components/styles.scss';
 import { RootContext } from '../../../RootContext.jsx';
 import { LineHolder } from '../../../Components/Lines/LineHolder';
 import { lineColors, lineSides, lineSizes } from '../../../Components/Lines/Line';
 import { LabelAndLine } from '../../../Components/Lines/LabelAndLine';
 import { LineOnly } from '../../../Components/Lines/LineOnly';
+import { RowHolder } from '../../../Components/RowHolder';
 
 // TODO move this to utils?
 /* const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -83,69 +84,77 @@ const IdentPage: React.FC = () => {
     }, []);
     return (
         <>
-            <Column>
-                <LineHolder index={1}>
-                    <LabelAndLine
-                        labelValue={'\xa0ENG'}
-                        lineValue="LEAP-1A26"
-                        labelSide={lineSides.left}
-                        lineSide={lineSides.left}
-                        lineColor={lineColors.green}
-                    />
-                </LineHolder>
-                <LineHolder index={2}>
-                    <LabelAndLine
-                        labelValue={'\xa0ACTIVE NAV DATA BASE'}
-                        lineValue="TODO"
-                        labelSide={lineSides.left}
-                        lineSide={lineSides.left}
-                        lineColor={lineColors.cyan}
-                    />
-                </LineHolder>
-                <LineHolder index={3}>
-                    <LabelAndLine
-                        labelValue="TODO"
-                        lineValue={'\xa0SECOND NAV DATA BASE'}
-                        labelSide={lineSides.left}
-                        lineSide={lineSides.left}
-                        lineColor={lineColors.inop}
-                        lineSize={lineSizes.small}
-                    />
-                </LineHolder>
-                <LineHolder index={5}>
-                    <LabelAndLine
-                        labelValue="[  ]"
-                        lineValue="CHG CODE"
-                        lineSize={lineSizes.small}
-                        labelSide={lineSides.left}
-                        lineSide={lineSides.left}
-                        lineColor={lineColors.inop}
-                    />
-                </LineHolder>
-                <LineHolder index={6}>
-                    <LabelAndLine
-                        labelValue="+0.0/+0.0"
-                        lineValue="IDLE/PERF"
-                        labelSide={lineSides.left}
-                        lineSide={lineSides.left}
-                        lineColor={lineColors.green}
-                    />
-                </LineHolder>
-            </Column>
-            <Column>
-                <LineHolder index={2}>
-                    <LineOnly side={lineSides.right} value="AIRAC" color={lineColors.green} />
-                </LineHolder>
-                <LineHolder index={6}>
-                    <LabelAndLine
-                        labelValue="SOFTWARE"
-                        lineValue="STATUS/XLOAD"
-                        labelSide={lineSides.right}
-                        lineSide={lineSides.right}
-                        lineColor={lineColors.inop}
-                    />
-                </LineHolder>
-            </Column>
+            <Content>
+                <RowHolder index={1}>
+                    <LineHolder>
+                        <LabelAndLine
+                            labelValue={'\xa0ENG'}
+                            lineValue="LEAP-1A26"
+                            labelSide={lineSides.left}
+                            lineSide={lineSides.left}
+                            lineColor={lineColors.green}
+                        />
+                    </LineHolder>
+                </RowHolder>
+                <RowHolder index={2}>
+                    <LineHolder>
+                        <LabelAndLine
+                            labelValue={'\xa0ACTIVE NAV DATA BASE'}
+                            lineValue="TODO"
+                            labelSide={lineSides.left}
+                            lineSide={lineSides.left}
+                            lineColor={lineColors.cyan}
+                        />
+                    </LineHolder>
+                    <LineHolder>
+                        <LineOnly side={lineSides.right} value="AIRAC" color={lineColors.green} />
+                    </LineHolder>
+                </RowHolder>
+                <RowHolder index={3}>
+                    <LineHolder>
+                        <LabelAndLine
+                            lineValue="TODO"
+                            labelValue={'\xa0SECOND NAV DATA BASE'}
+                            labelSide={lineSides.left}
+                            lineSide={lineSides.left}
+                            lineColor={lineColors.inop}
+                            lineSize={lineSizes.small}
+                        />
+                    </LineHolder>
+                </RowHolder>
+                <RowHolder index={5}>
+                    <LineHolder>
+                        <LabelAndLine
+                            labelValue="[  ]"
+                            lineValue="CHG CODE"
+                            lineSize={lineSizes.small}
+                            labelSide={lineSides.left}
+                            lineSide={lineSides.left}
+                            lineColor={lineColors.inop}
+                        />
+                    </LineHolder>
+                </RowHolder>
+                <RowHolder index={6}>
+                    <LineHolder>
+                        <LabelAndLine
+                            labelValue="+0.0/+0.0"
+                            lineValue="IDLE/PERF"
+                            labelSide={lineSides.left}
+                            lineSide={lineSides.left}
+                            lineColor={lineColors.green}
+                        />
+                    </LineHolder>
+                    <LineHolder>
+                        <LabelAndLine
+                            labelValue="SOFTWARE"
+                            lineValue="STATUS/XLOAD"
+                            labelSide={lineSides.right}
+                            lineSide={lineSides.right}
+                            lineColor={lineColors.inop}
+                        />
+                    </LineHolder>
+                </RowHolder>
+            </Content>
         </>
     );
 };

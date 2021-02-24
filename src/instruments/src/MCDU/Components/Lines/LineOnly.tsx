@@ -1,6 +1,6 @@
-import React from "react";
-import {EmptyLine} from "./EmptyLine";
-import {Line, lineColors, lineSides} from "./Line";
+import React from 'react';
+import { EmptyLine } from './EmptyLine';
+import { Line, lineColors, lineSides } from './Line';
 
 type LineOnlyProps = {
     value: string,
@@ -9,19 +9,17 @@ type LineOnlyProps = {
     func?: (value:any) => any
 }
 
-export const LineOnly: React.FC<LineOnlyProps> = ({side, value, color, func}) => {
-    return (
-        <>
-            <EmptyLine />
-            <Line value={value} color={color} side={side}/>
-        </>
+export const LineOnly: React.FC<LineOnlyProps> = ({ side, value, color, func }) => (
+    <>
+        <EmptyLine />
+        <Line value={value} color={color} side={side} />
+    </>
 
-    )
-}
+);
 
 const DefaultLineOnlyProps: LineOnlyProps = {
-    value: "",
+    value: '',
     color: lineColors.white,
-    side: lineSides.left
-}
+    side: lineSides.left,
+};
 LineOnly.defaultProps = DefaultLineOnlyProps;

@@ -7,6 +7,7 @@
   font-style: normal;
 }
 
+// TODO why doesn't this fucking work?
 @font-face {
   src: url("/Fonts/HoneywellMCDU.ttf") format("truetype");
   font-family: "HoneywellMCDU";
@@ -26,6 +27,16 @@
   flex: 1 1 auto;
   display:flex;
   flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+
+  margin: 0 20px 0 20px;
+}
+
+.row-holder {
+  flex: 1 1 auto;
+  display:flex;
+  flex-direction: row;
   align-items: stretch;
   justify-content: center;
 }

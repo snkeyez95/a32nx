@@ -1,9 +1,14 @@
 import React, { ReactElement } from 'react';
 import './styles.scss';
 import { LineHolder } from './Lines/LineHolder';
+import { RowHolder } from './RowHolder';
 
 function handleChildInsertion(children: any, value: number) : ReactElement {
-    let node = <LineHolder />;
+    let node = (
+        <RowHolder>
+            <LineHolder />
+        </RowHolder>
+    );
     for (const child of React.Children.toArray(children)) {
         if (React.isValidElement(child)) {
             const { index } = child.props;
@@ -14,7 +19,7 @@ function handleChildInsertion(children: any, value: number) : ReactElement {
     }
     return node;
 }
-const Column: React.FC = ({ children }) => (
+const Content: React.FC = ({ children }) => (
     <div className="column-holder">
         {[1, 2, 3, 4, 5, 6].map((value) => (
             <>
@@ -24,4 +29,4 @@ const Column: React.FC = ({ children }) => (
     </div>
 );
 
-export { Column };
+export { Content };

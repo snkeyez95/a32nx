@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Column } from '../../../Components/Column';
+import { Content } from '../../../Components/Content';
 import { RootContext } from '../../../RootContext.jsx';
 import '../../../Components/styles.scss';
 import { useInteractionEvent } from '../../../../Common/hooks';
@@ -7,6 +7,7 @@ import { LineHolder } from '../../../Components/Lines/LineHolder';
 import { LineOnly } from '../../../Components/Lines/LineOnly';
 import { lineColors, lineSides } from '../../../Components/Lines/Line';
 import { LabelAndLine } from '../../../Components/Lines/LabelAndLine';
+import { RowHolder } from '../../../Components/RowHolder';
 
 type MenuProps = {
     setPage: React.Dispatch<React.SetStateAction<string>>
@@ -60,36 +61,46 @@ const MenuPage: React.FC<MenuProps> = ({ setPage }) => {
 
     return (
         <>
-            <Column side="column-left">
-                <LineHolder index={1}>
-                    <LineOnly value={determineText('FMGC')} color={determineColor('FMGC')} />
-                </LineHolder>
-                <LineHolder index={2}>
-                    <LineOnly value={determineText('ATSU')} color={determineColor('ATSU')} />
-                </LineHolder>
-                <LineHolder index={3}>
-                    <LineOnly value={determineText('AIDS')} color={determineColor('AIDS')} />
-                </LineHolder>
-                <LineHolder index={4}>
-                    <LineOnly value={determineText('CFDS')} color={determineColor('CFDS')} />
-                </LineHolder>
-            </Column>
-            <Column side="column-right">
-                <LineHolder index={1}>
-                    <LabelAndLine
-                        labelValue={'SELECT\xa0'}
-                        lineValue="NAV B/UP>"
-                        labelSide={lineSides.right}
-                        lineSide={lineSides.right}
-                    />
-                </LineHolder>
-                <LineHolder index={5}>
-                    <LineOnly value="OPTIONS>" side={lineSides.right} />
-                </LineHolder>
-                <LineHolder index={6}>
-                    <LineOnly value="RETURN>" side={lineSides.right} />
-                </LineHolder>
-            </Column>
+            <Content>
+                <RowHolder index={1}>
+                    <LineHolder>
+                        <LineOnly value={determineText('FMGC')} color={determineColor('FMGC')} />
+                    </LineHolder>
+                    <LineHolder>
+                        <LabelAndLine
+                            labelValue={'SELECT\xa0'}
+                            lineValue="NAV B/UP>"
+                            labelSide={lineSides.right}
+                            lineSide={lineSides.right}
+                        />
+                    </LineHolder>
+                </RowHolder>
+                <RowHolder index={2}>
+                    <LineHolder>
+                        <LineOnly value={determineText('ATSU')} color={determineColor('ATSU')} />
+                    </LineHolder>
+                </RowHolder>
+                <RowHolder index={3}>
+                    <LineHolder>
+                        <LineOnly value={determineText('AIDS')} color={determineColor('AIDS')} />
+                    </LineHolder>
+                </RowHolder>
+                <RowHolder index={4}>
+                    <LineHolder>
+                        <LineOnly value={determineText('CFDS')} color={determineColor('CFDS')} />
+                    </LineHolder>
+                </RowHolder>
+                <RowHolder index={5}>
+                    <LineHolder>
+                        <LineOnly value="OPTIONS>" side={lineSides.right} />
+                    </LineHolder>
+                </RowHolder>
+                <RowHolder index={6}>
+                    <LineHolder>
+                        <LineOnly value="RETURN>" side={lineSides.right} />
+                    </LineHolder>
+                </RowHolder>
+            </Content>
         </>
     );
 };
