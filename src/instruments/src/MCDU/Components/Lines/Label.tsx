@@ -1,5 +1,5 @@
-import React from "react";
-import {Line, lineColors, lineSides, lineSizes} from "./Line";
+import React from 'react';
+import { Line, lineColors, lineSides, lineSizes } from './Line';
 
 type LabelProps = {
     value?: string,
@@ -7,16 +7,14 @@ type LabelProps = {
     size?: lineSizes
     color?: lineColors
 }
-export const Label: React.FC<LabelProps> = ({color, size, value, side}) => {
-    return (
-        <Line value={value} size={size} side={side} color={color}/>
-    )
-}
+export const Label: React.FC<LabelProps> = ({ color, size, value, side }) => (
+    <Line value={value} size={size} side={side} color={color} />
+);
 
 const DefaultLabelProps:LabelProps = {
-    value: "",
+    value: '',
     side: lineSides.left,
-    size: lineSizes.regular,
-    color: lineColors.white
-}
+    size: lineSizes.small,
+    color: lineColors.white,
+};
 Label.defaultProps = DefaultLabelProps;

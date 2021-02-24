@@ -18,17 +18,19 @@
 import React, { useState } from 'react';
 import { InitPage } from './FMGC/Init.jsx';
 import MenuPage from './FMGC/Menu/Menu';
-import { useInteractionEvent } from "../../Common/hooks";
+import { useInteractionEvent } from '../../Common/hooks';
+import IdentPage from './FMGC/Ident/Ident';
 
 const PagesContainer = () => {
     const [currentPage, setCurrentPage] = useState('MENU');
     const pages = {
         INIT: <InitPage />,
-        MENU: <MenuPage setPage={setCurrentPage}/>,
+        MENU: <MenuPage setPage={setCurrentPage} />,
+        IDENT: <IdentPage />,
     };
 
-    useInteractionEvent("A32NX_MCDU_L_INIT_BUTTON_PRESSED", () => setCurrentPage('INIT'));
-    useInteractionEvent("A32NX_MCDU_L_MENU_BUTTON_PRESSED", () => setCurrentPage('MENU'));
+    useInteractionEvent('A32NX_MCDU_L_INIT_BUTTON_PRESSED', () => setCurrentPage('INIT'));
+    useInteractionEvent('A32NX_MCDU_L_MENU_BUTTON_PRESSED', () => setCurrentPage('MENU'));
 
     return pages[currentPage];
 };

@@ -1,6 +1,6 @@
-import React from "react";
-import {Line, lineColors, lineSides, lineSizes} from "./Line";
-import {Label} from "./Label";
+import React from 'react';
+import { Line, lineColors, lineSides, lineSizes } from './Line';
+import { Label } from './Label';
 
 type LabelAndLineProps = {
     labelValue: string,
@@ -20,11 +20,11 @@ export const LabelAndLine: React.FC<LabelAndLineProps> = (
         labelValue,
         labelColor,
         lineColor,
-        lineValue}) => {
-    return (
-        <>
-            <Label value={labelValue} side={labelSide} color={labelColor}/>
-            <Line value={lineValue} side={lineSide} color={lineColor} size={lineSize}/>
-        </>
-    )
-}
+        lineValue,
+    },
+) => (
+    <>
+        <Label value={labelValue} side={labelSide} color={labelColor} />
+        <Line value={lineValue} side={lineSide} color={lineColor} size={lineSize} />
+    </>
+);

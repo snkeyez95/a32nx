@@ -1,11 +1,11 @@
-import React, {useContext, useEffect} from "react";
-import {Column} from "../../../Components/Column";
-import "../../../Components/styles.scss"
-import {RootContext} from "../../../RootContext.jsx";
-import {LineHolder} from "../../../Components/Lines/LineHolder";
-import {lineColors, lineSides, lineSizes} from "../../../Components/Lines/Line";
-import {LabelAndLine} from "../../../Components/Lines/LabelAndLine";
-import {LineOnly} from "../../../Components/Lines/LineOnly";
+import React, { useContext, useEffect } from 'react';
+import { Column } from '../../../Components/Column';
+import '../../../Components/styles.scss';
+import { RootContext } from '../../../RootContext.jsx';
+import { LineHolder } from '../../../Components/Lines/LineHolder';
+import { lineColors, lineSides, lineSizes } from '../../../Components/Lines/Line';
+import { LabelAndLine } from '../../../Components/Lines/LabelAndLine';
+import { LineOnly } from '../../../Components/Lines/LineOnly';
 
 // TODO move this to utils?
 /* const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -74,21 +74,20 @@ function calculateSecDate(date) {
     }
 }  */
 
-
 const IdentPage: React.FC = () => {
     const [, , , setTitle] = useContext(RootContext);
-    //const date = useSimVar("FLIGHT NAVDATA DATE RANGE", "string")
+    // const date = useSimVar("FLIGHT NAVDATA DATE RANGE", "string"
 
     useEffect(() => {
-        setTitle("A320-200")
+        setTitle('A320-200');
     }, []);
     return (
-        <div className="two-columns">
-            <Column side={"column-left"}>
+        <>
+            <Column>
                 <LineHolder index={1}>
                     <LabelAndLine
-                        labelValue={"\xa0ENG"}
-                        lineValue={"LEAP-1A26"}
+                        labelValue={'\xa0ENG'}
+                        lineValue="LEAP-1A26"
                         labelSide={lineSides.left}
                         lineSide={lineSides.left}
                         lineColor={lineColors.green}
@@ -96,8 +95,8 @@ const IdentPage: React.FC = () => {
                 </LineHolder>
                 <LineHolder index={2}>
                     <LabelAndLine
-                        labelValue={"\xa0ACTIVE NAV DATA BASE"}
-                        lineValue={"TODO"}
+                        labelValue={'\xa0ACTIVE NAV DATA BASE'}
+                        lineValue="TODO"
                         labelSide={lineSides.left}
                         lineSide={lineSides.left}
                         lineColor={lineColors.cyan}
@@ -105,8 +104,8 @@ const IdentPage: React.FC = () => {
                 </LineHolder>
                 <LineHolder index={3}>
                     <LabelAndLine
-                        labelValue={"TODO"}
-                        lineValue={"\xa0SECOND NAV DATA BASE"}
+                        labelValue="TODO"
+                        lineValue={'\xa0SECOND NAV DATA BASE'}
                         labelSide={lineSides.left}
                         lineSide={lineSides.left}
                         lineColor={lineColors.inop}
@@ -115,8 +114,8 @@ const IdentPage: React.FC = () => {
                 </LineHolder>
                 <LineHolder index={5}>
                     <LabelAndLine
-                        labelValue={"[  ]"}
-                        lineValue={"CHG CODE"}
+                        labelValue="[  ]"
+                        lineValue="CHG CODE"
                         lineSize={lineSizes.small}
                         labelSide={lineSides.left}
                         lineSide={lineSides.left}
@@ -125,30 +124,30 @@ const IdentPage: React.FC = () => {
                 </LineHolder>
                 <LineHolder index={6}>
                     <LabelAndLine
-                        labelValue={"+0.0/+0.0"}
-                        lineValue={"IDLE/PERF"}
+                        labelValue="+0.0/+0.0"
+                        lineValue="IDLE/PERF"
                         labelSide={lineSides.left}
                         lineSide={lineSides.left}
                         lineColor={lineColors.green}
                     />
                 </LineHolder>
             </Column>
-            <Column side={"column-right"}>
+            <Column>
                 <LineHolder index={2}>
-                    <LineOnly value={"AIRAC"} color={lineColors.green} />
+                    <LineOnly side={lineSides.right} value="AIRAC" color={lineColors.green} />
                 </LineHolder>
                 <LineHolder index={6}>
                     <LabelAndLine
-                        labelValue={"SOFTWARE"}
-                        lineValue={"STATUS/XLOAD"}
+                        labelValue="SOFTWARE"
+                        lineValue="STATUS/XLOAD"
                         labelSide={lineSides.right}
                         lineSide={lineSides.right}
                         lineColor={lineColors.inop}
                     />
                 </LineHolder>
             </Column>
-        </div>
-    )
-}
+        </>
+    );
+};
 
-export default IdentPage
+export default IdentPage;
