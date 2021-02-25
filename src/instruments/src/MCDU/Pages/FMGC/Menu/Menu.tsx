@@ -44,6 +44,10 @@ const MenuPage: React.FC<MenuProps> = ({ setPage }) => {
 
     function determineColor(system) {
         if (activeSys === system) {
+            if (selected) {
+                setSelected(false);
+                return lineColors.cyan;
+            }
             return lineColors.green;
         }
         return lineColors.white;

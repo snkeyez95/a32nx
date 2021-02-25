@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import React, { useState } from 'react';
-import { InitPage } from './FMGC/Init.jsx';
+import { InitPage } from './FMGC/Init/Init';
 import MenuPage from './FMGC/Menu/Menu';
 import { useInteractionEvent } from '../../Common/hooks';
 import IdentPage from './FMGC/Ident/Ident';
