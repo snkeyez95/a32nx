@@ -136,9 +136,20 @@ struct SimOutputZetaTrim {
   double zeta_trim_pos;
 };
 
+// GENERAL ENG THROTTLE MANAGED MODE:<1|2>
+// UNKNOWN  = 0
+// REVERSE  = 1
+// IDLE     = 2
+// AUTO     = 3
+// CLIMB    = 4
+// FLEX_MCT = 5
+// TOGA     = 6
+// HOLD     = 7
 struct SimOutputThrottles {
   double throttleLeverPosition_1;
   double throttleLeverPosition_2;
+  double throttleManagedMode_1;
+  double throttleManagedMode_2;
 };
 
 struct SimOutputEngineOverride {
@@ -195,4 +206,10 @@ struct ClientDataLocalVariables {
   double fcuSelectedHeading;
   double crossTrackError;
   double trackAngleError;
+};
+
+struct ClientDataLocalVariablesAutothrust {
+  double throttlePosition_1;
+  double throttlePosition_2;
+  double requestedMode;
 };

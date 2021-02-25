@@ -604,38 +604,13 @@ bool FlyByWireInterface::updateFlyByWire(double sampleTime) {
     flyByWire.FlyByWire_U.in.data.thrust_lever_2_pos = simData.throttle_lever_2_pos;
 
     // process the sidestick handling ---------------------------------------------------------------------------------
-    // use the values read from input as sidestick left
-    double sideStickLeftPositionX = -1.0 * simInput.inputs[1];
-    double sideStickLeftPositionY = -1.0 * simInput.inputs[0];
-    // read the values from sidestick right
-    double sideStickRightPositionX = get_named_variable_value(idSideStickRightPositionX);
-    double sideStickRightPositionY = get_named_variable_value(idSideStickRightPositionY);
-    // add them together and clamp them
-    double sideStickPositionX = sideStickLeftPositionX + sideStickRightPositionX;
-    sideStickPositionX = min(1.0, sideStickPositionX);
-    sideStickPositionX = max(-1.0, sideStickPositionX);
-    double sideStickPositionY = sideStickLeftPositionY + sideStickRightPositionY;
-    sideStickPositionY = min(1.0, sideStickPositionY);
-    sideStickPositionY = max(-1.0, sideStickPositionY);
-    // write them as sidestick position
-    set_named_variable_value(idSideStickLeftPositionX, sideStickLeftPositionX);
-    set_named_variable_value(idSideStickLeftPositionY, sideStickLeftPositionY);
-    set_named_variable_value(idSideStickPositionX, sideStickPositionX);
-    set_named_variable_value(idSideStickPositionY, sideStickPositionY);
-
-    // rudder handling
-    double rudderPositionOverrideOn = get_named_variable_value(idRudderPositionOverrideOn);
-    double rudderPosition = simInput.inputs[2];
-    if (rudderPositionOverrideOn == 0) {
-      set_named_variable_value(idRudderPosition, rudderPosition);
-    } else {
-      rudderPosition = get_named_variable_value(idRudderPosition);
-    }
-
+    // write sidestick position
+    set_named_variable_value(idSideStickPositionX, -1.0 * simInput.inputs[1]);
+    set_named_variable_value(idSideStickPositionY, -1.0 * simInput.inputs[0]);
     // fill inputs into model
-    flyByWire.FlyByWire_U.in.input.delta_eta_pos = -1.0 * sideStickPositionY;
-    flyByWire.FlyByWire_U.in.input.delta_xi_pos = -1.0 * sideStickPositionX;
-    flyByWire.FlyByWire_U.in.input.delta_zeta_pos = rudderPosition;
+    flyByWire.FlyByWire_U.in.input.delta_eta_pos = simInput.inputs[0];
+    flyByWire.FlyByWire_U.in.input.delta_xi_pos = simInput.inputs[1];
+    flyByWire.FlyByWire_U.in.input.delta_zeta_pos = simInput.inputs[2];
 
     // step the model -------------------------------------------------------------------------------------------------
     flyByWire.step();
@@ -695,19 +670,6 @@ void FlyByWireInterface::setupLocalVariables() {
   // register L variables for the sidestick
   idSideStickPositionX = register_named_variable("A32NX_SIDESTICK_POSITION_X");
   idSideStickPositionY = register_named_variable("A32NX_SIDESTICK_POSITION_Y");
-  // register L variables for the sidestick on the left side
-  idSideStickLeftPositionX = register_named_variable("A32NX_SIDESTICK_LEFT_POSITION_X");
-  idSideStickLeftPositionY = register_named_variable("A32NX_SIDESTICK_LEFT_POSITION_Y");
-  // register L variables for the sidestick on the right side
-  idSideStickRightPositionX = register_named_variable("A32NX_SIDESTICK_RIGHT_POSITION_X");
-  idSideStickRightPositionY = register_named_variable("A32NX_SIDESTICK_RIGHT_POSITION_Y");
-  // register L variables for the rudder handling
-  idRudderPositionOverrideOn = register_named_variable("A32NX_RUDDER_POSITION_OVERRIDE_ON");
-  idRudderPosition = register_named_variable("A32NX_RUDDER_POSITION");
-  // register L variables for the throttle handling
-  idThrottlePositionOverrideOn = register_named_variable("A32NX_THROTTLE_POSITION_OVERRIDE_ON");
-  idThrottlePosition_1 = register_named_variable("A32NX_THROTTLE_POSITION_1");
-  idThrottlePosition_2 = register_named_variable("A32NX_THROTTLE_POSITION_2");
 
   // register L variable for custom fly-by-wire interface
   idFmaLateralMode = register_named_variable("A32NX_FMA_LATERAL_MODE");
@@ -757,6 +719,11 @@ void FlyByWireInterface::setupLocalVariables() {
   idFcuApprModeActive = register_named_variable("A32NX_FCU_APPR_MODE_ACTIVE");
   idFcuModeReversionActive = register_named_variable("A32NX_FCU_MODE_REVERSION_ACTIVE");
   idFcuModeReversionTrkFpaActive = register_named_variable("A32NX_FCU_MODE_REVERSION_TRK_FPA_ACTIVE");
+
+  idThrottlePosition_1 = register_named_variable("A32NX_THROTTLE_LEVER_POSITION_1");
+  idThrottlePosition_2 = register_named_variable("A32NX_THROTTLE_LEVER_POSITION_2");
+  idThrottlePosition3d_1 = register_named_variable("A32NX_3D_THROTTLE_LEVER_POSITION_1");
+  idThrottlePosition3d_2 = register_named_variable("A32NX_3D_THROTTLE_LEVER_POSITION_2");
 }
 
 void FlyByWireInterface::loadConfiguration() {
@@ -853,6 +820,14 @@ void FlyByWireInterface::initializeThrottles() {
 
   // initialize lookup table
   throttleLookupTable.initialize(mappingTable, -20, 100);
+
+  vector<pair<double, double>> mappingTable3d;
+  mappingTable3d.emplace_back(-20.0, 0.0);
+  mappingTable3d.emplace_back(0.0, 25.0);
+  mappingTable3d.emplace_back(89.0, 50.0);
+  mappingTable3d.emplace_back(95.0, 75.0);
+  mappingTable3d.emplace_back(100.0, 100.0);
+  idThrottlePositionLookupTable.initialize(mappingTable3d, 0, 100);
 }
 
 bool FlyByWireInterface::processThrottles() {
@@ -869,15 +844,6 @@ bool FlyByWireInterface::processThrottles() {
   }
   if (!useReverseOnAxis && simConnectInterface.getIsReverseToggleActive(1)) {
     simOutputThrottles.throttleLeverPosition_2 = -10.0 * (simInputThrottles.throttles[1] + 1);
-  }
-
-  // detect if override is active
-  if (get_named_variable_value(idThrottlePositionOverrideOn) == 0) {
-    set_named_variable_value(idThrottlePosition_1, simOutputThrottles.throttleLeverPosition_1);
-    set_named_variable_value(idThrottlePosition_2, simOutputThrottles.throttleLeverPosition_2);
-  } else {
-    simOutputThrottles.throttleLeverPosition_1 = get_named_variable_value(idThrottlePosition_1);
-    simOutputThrottles.throttleLeverPosition_2 = get_named_variable_value(idThrottlePosition_2);
   }
 
   // clip when aircraft is in flight
@@ -910,11 +876,30 @@ bool FlyByWireInterface::processThrottles() {
     }
   }
 
+  // set position for 3D animation
+  set_named_variable_value(idThrottlePosition_1, simOutputThrottles.throttleLeverPosition_1);
+  set_named_variable_value(idThrottlePosition_2, simOutputThrottles.throttleLeverPosition_2);
+  set_named_variable_value(idThrottlePosition3d_1,
+                           idThrottlePositionLookupTable.get(simOutputThrottles.throttleLeverPosition_1));
+  set_named_variable_value(idThrottlePosition3d_2,
+                           idThrottlePositionLookupTable.get(simOutputThrottles.throttleLeverPosition_2));
+
+  // calculate managed mode
+  simOutputThrottles.throttleManagedMode_1 = getThrottleManagedMode(simOutputThrottles.throttleLeverPosition_1);
+  simOutputThrottles.throttleManagedMode_2 = getThrottleManagedMode(simOutputThrottles.throttleLeverPosition_2);
+
+  ClientDataLocalVariablesAutothrust ClientDataLocalVariablesAutothrust = {
+      simOutputThrottles.throttleLeverPosition_1,
+      simOutputThrottles.throttleLeverPosition_2,
+      autopilotStateMachineOutput.autothrust_mode,
+  };
+  simConnectInterface.setClientDataLocalVariablesAutothrust(ClientDataLocalVariablesAutothrust);
+
   // write output to sim
-  if (!simConnectInterface.sendData(simOutputThrottles)) {
-    std::cout << "WASM: Write data failed!" << endl;
-    return false;
-  }
+  // if (!simConnectInterface.sendData(simOutputThrottles)) {
+  //   std::cout << "WASM: Write data failed!" << endl;
+  //   return false;
+  // }
 
   // determine if autothrust armed event needs to be triggered
   if (simConnectInterface.getIsAutothrottlesArmed() && simOutputThrottles.throttleLeverPosition_1 < 1 &&
@@ -927,6 +912,23 @@ bool FlyByWireInterface::processThrottles() {
 
   // success
   return true;
+}
+
+double FlyByWireInterface::getThrottleManagedMode(double input) {
+  if (input < 0) {
+    return 1;
+  } else if (input == 0) {
+    return 2;
+  } else if (input > 0 && input < 89) {
+    return 3;
+  } else if (input >= 89 && input < 95) {
+    return 4;
+  } else if (input >= 95 && input < 100) {
+    return 5;
+  } else if (input == 100) {
+    return 6;
+  }
+  return 0;
 }
 
 double FlyByWireInterface::calculateDeadzones(double deadzone, double input) {

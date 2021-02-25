@@ -60,6 +60,8 @@ class SimConnectInterface {
 
   bool setClientDataLocalVariables(ClientDataLocalVariables output);
 
+  bool setClientDataLocalVariablesAutothrust(ClientDataLocalVariablesAutothrust output);
+
   void resetSimInputAutopilot();
 
   SimData getSimData();
@@ -85,6 +87,7 @@ class SimConnectInterface {
     AUTOPILOT_STATE_MACHINE,
     AUTOPILOT_LAWS,
     LOCAL_VARIABLES,
+    LOCAL_VARIABLES_AUTOTHRUST,
   };
 
   enum Events {

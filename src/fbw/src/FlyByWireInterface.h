@@ -80,17 +80,6 @@ class FlyByWireInterface {
 
   ID idSideStickPositionX;
   ID idSideStickPositionY;
-  ID idSideStickLeftPositionX;
-  ID idSideStickLeftPositionY;
-  ID idSideStickRightPositionX;
-  ID idSideStickRightPositionY;
-
-  ID idRudderPositionOverrideOn;
-  ID idRudderPosition;
-
-  ID idThrottlePositionOverrideOn;
-  ID idThrottlePosition_1;
-  ID idThrottlePosition_2;
 
   ID idFmaLateralMode;
   ID idFmaLateralArmed;
@@ -135,6 +124,12 @@ class FlyByWireInterface {
   ID idFmgcAccelerationAltitudeGoAround;
   ID idFmgcCruiseAltitude;
 
+  ID idThrottlePosition_1;
+  ID idThrottlePosition_2;
+  ID idThrottlePosition3d_1;
+  ID idThrottlePosition3d_2;
+  InterpolatingLookupTable idThrottlePositionLookupTable;
+
   ap_raw_laws_input autopilotStateMachineOutput;
   ap_raw_output autopilotLawsOutput;
 
@@ -158,4 +153,6 @@ class FlyByWireInterface {
   double calculateDeadzone(double deadzone, double target, double input);
 
   double smoothFlightDirector(double sampleTime, double factor, double limit, double currentValue, double targetValue);
+
+  double getThrottleManagedMode(double input);
 };
