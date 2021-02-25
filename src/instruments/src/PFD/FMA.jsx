@@ -353,15 +353,15 @@ const B2Cell = () => {
 
     let text1;
     let color1 = 'Cyan';
-    if (altCstArmed) {
+    if (clbArmed) {
+        text1 = 'CLB';
+    } else if (desArmed) {
+        text1 = 'DES';
+    } else if (altCstArmed) {
         text1 = 'ALT';
         color1 = 'Magenta';
     } else if (altArmed) {
         text1 = 'ALT';
-    } else if (clbArmed) {
-        text1 = 'CLB';
-    } else if (desArmed) {
-        text1 = 'DES';
     } else {
         text1 = null;
     }
